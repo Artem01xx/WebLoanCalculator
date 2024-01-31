@@ -1,0 +1,40 @@
+<!-- Views/LoanCalculator/Index.cshtml -->
+@model LoanCalculatorViewModel
+
+@{
+    ViewData["Title"] = "Кредитный калькулятор";
+}
+<h2>Основной калькулятор</h2>
+
+<form asp-controller="LoanCalculator" asp-action="Calculate" method="post">
+    <div class="form-group">
+        <label for="LoanAmount">Сумма займа:</label>
+        <input type="text" class="form-control" id="LoanAmount" name="LoanAmount" value="@Model.LoanAmount">
+        <span asp-validation-for="LoanAmount" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="LoanTermMonths">Срок займа (в месяцах):</label>
+        <input type="text" class="form-control" id="LoanTermMonths" name="LoanTermMonths" value="@Model.LoanTermMonths">
+        <span asp-validation-for="LoanTermMonths" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-2">
+        <label for="InterestRate">Ставка (в год):</label>
+        <input type="text" class="form-control" id="InterestRate" name="InterestRate" value="@Model.InterestRate">
+        <span asp-validation-for="InterestRate" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Рассчитать</button>
+    <div class="mb-2">
+        <a asp-controller="LoanCalculator" asp-action="Index" class="btn btn-primary mt-10">Назад к вводу данных</a>
+    </div>
+    <div>
+        <a asp-controller="LoanCalculator" asp-action="CustomCalculator" class="btn btn-primary mt-10">Перейти к дополнительному калькулятору</a>
+    </div>
+   
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+
+</form>
+

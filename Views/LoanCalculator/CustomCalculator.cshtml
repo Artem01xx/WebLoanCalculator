@@ -1,0 +1,51 @@
+<!-- Views/LoanCalculator/CustomCalculator.cshtml -->
+@model CustomLoanCalculatorViewModel
+
+@{
+    ViewData["Title"] = "Кредитный калькулятор";
+}
+
+<h2 class="mt-5">Дополнительный калькулятор</h2>
+
+<form asp-controller="LoanCalculator" asp-action="CalculateCustom" method="post">
+    
+    <div class="form-group">
+        <label for="LoanAmountCustom">Сумма займа:</label>
+        <input type="text" class="form-control" id="LoanAmountCustom" name="LoanAmountCustom" value="@Model.LoanAmountCustom">
+        <span asp-validation-for="LoanAmountCustom" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="LoanAmountCustom">Срок займа(в днях):</label>
+        <input type="text" class="form-control" id="LoanTermDaysCustom" name="LoanTermDaysCustom" value="@Model.LoanTermDaysCustom">
+        <span asp-validation-for="LoanTermDaysCustom" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="LoanAmountCustom">Ставка(в день):</label>
+        <input type="text" class="form-control" id="InterestRatePerDayCustom" name="InterestRatePerDayCustom" value="@Model.InterestRatePerDayCustom">
+        <span asp-validation-for="InterestRatePerDayCustom" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="LoanAmountCustom">Шаг платежа(в днях):</label>
+        <input type="text" class="form-control" id="PaymentStepDays" name="PaymentStepDays" value="@Model.PaymentStepDays">
+        <span asp-validation-for="PaymentStepDays" class="text-danger"></span>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary mt-2">Рассчитать дополнительный калькулятор</button>
+
+    <div class="mt-2">
+        <a asp-controller="LoanCalculator" asp-action="CustomCalculator" class="btn btn-primary">Назад к вводу данных</a>
+    </div>
+    <div class="mt-2">
+        <a asp-controller="LoanCalculator" asp-action="Index" class="btn btn-primary mt-10">Перейти к основному калькулятору</a>
+    </div>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+</form>

@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Web_Loan_Calculator.props" />
+</Project>

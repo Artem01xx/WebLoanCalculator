@@ -1,0 +1,95 @@
+<!-- Views/LoanCalculator/Result.cshtml -->
+@model LoanCalculationResult
+
+@{
+    ViewData["Title"] = "Результаты расчета";
+}
+
+@if (ViewBag.MainLoanCalculator != null)
+{
+
+    <h2>Результаты расчета основного калькулятора</h2>
+
+    @if (Model.Payments != null && Model.Payments.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Дата платежа</th>
+                    <th>Размер платежа по телу</th>
+                    <th>Размер платежа по %</th>
+                    <th>Остаток основного долга</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var payment in Model.Payments)
+                {
+                    <tr>
+                        <td>@payment.PaymentNumber</td>
+                        <td>@payment.PaymentDate</td>
+                        <td>@payment.PrincipalPayment</td>
+                        <td>@payment.InterestPayment</td>
+                        <td>@payment.RemainingBalance</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <p>Итоговая сумма переплаты: @Model.TotalInterest</p>
+    }
+
+    else
+    {
+        <p>Расчеты не выполнены</p>
+    }
+
+    <div>
+        <a asp-controller="LoanCalculator" asp-action="Index" class="btn btn-primary mt-2">Назад к калькулятору</a>
+    </div>
+}
+
+
+@if (ViewBag.CustomLoanCalculator != null)
+{
+    <h2>Результаты дополнительного калькулятора</h2>
+
+    @if (Model.CustomPayment != null && Model.CustomPayment.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Дата платежа</th>
+                    <th>Сумма платежа</th>
+                    <th>Основной долг</th>
+                    <th>Проценты</th>
+                    <th>Остаток долга</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var customPayment in Model.CustomPayment)
+                {
+                    <tr>
+                        <td>@customPayment.CustomPaymentNumber</td>
+                        <td>@customPayment.CustomPaymentDateString</td>
+                        <td>@customPayment.AmounOfPayment</td>
+                        <td>@customPayment.MainDebt</td>
+                        <td>@customPayment.Procents</td>
+                        <td>@customPayment.CustomRemainingBalance</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <p>Итоговая сумма переплаты: @Model.TotalInterest</p>
+    }
+    else
+    {
+        <p>Расчеты не выполнены</p>
+    }
+
+    <div class="mt-2">
+        <a asp-controller="LoanCalculator" asp-action="CustomCalculator" class="btn btn-primary mt-2">Назад к калькулятору</a>
+    </div>
+}
